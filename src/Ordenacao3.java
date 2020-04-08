@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Selecao {
+public class Ordenacao3 {
 
     public static void selecaoString(String vet[]) {
 
@@ -19,16 +19,14 @@ public class Selecao {
     }
 
     public static void selecao(int vet[]) {
-        for (int i = 0; i < vet.length - 1; i++) {
-            int indMenor = i;
+        for (int i = 0; i < vet.length; i++) {
             for (int j = i + 1; j < vet.length; j++) {
-                if (vet[j] < vet[indMenor])
-                    indMenor = j;
+                if (vet[j] > vet[i]) {
+                    int aux = vet[i];
+                	vet[i] = vet[j];
+                	vet[j] = aux;
+                }
             }
-            int aux = vet[i];
-            vet[i] = vet[indMenor];
-            vet[indMenor] = aux;
-            System.out.println("DEBUG: " + Arrays.toString(vet));
         }
 
     }
@@ -49,30 +47,21 @@ public class Selecao {
     }
 
     public static void selecao2(int vet[]) {
-        for (int i = 0; i < vet.length - 1; i++) {
-            int indMenor = indiceMenorElemento(vet, 1);
-            for (int j = i + 1; j < vet.length; j++) {
-                if (vet[j] < vet[indMenor])
-                    indMenor = j;
-            }
+        for (int i = 0; i < vet.length; i++) {
+            int menor = indiceMenorElemento(vet, i);
             int aux = vet[i];
-            vet[i] = vet[indMenor];
-            vet[indMenor] = aux;
-            System.out.println("DEBUG: " + Arrays.toString(vet));
+            vet[i] = vet[menor];
+            vet[menor] = aux;
         }
 
     }
 
     public static int indiceMenorElemento(int vet[], int inicio) {
-        if (inicio == vet.length - 1)
-            return vet[inicio];
-        else {
-            int menor = indiceMenorElemento(vet, inicio + 1);
-            if (menor < vet[inicio])
-                return menor;
-            else
-                return vet[inicio];
+        int menor = inicio;
+    	for (int i = inicio + 1; i < vet.length; i++) {
+        	if (vet[menor] > vet[i]) menor = i;
         }
+    	return menor;
     }
 
     public static void main(String args[]) {
@@ -100,7 +89,7 @@ public class Selecao {
 
         String saida2 = "\nMetodo da Seleção\n";
 
-        for (int tam = 500; tam <= 4000; tam = tam + 500) {
+        for (int tam = 500; tam <= 4000; tam +=  500) {
             int vet1[] = new int[tam];
             int vet2[] = new int[tam];
 
